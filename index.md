@@ -1,3 +1,6 @@
+---
+layout: default
+---
 ## The Martian Castaway
 
 ### Introduction
