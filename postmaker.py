@@ -9,7 +9,7 @@ from urllib import parse
 import datetime
 
 POSTS_LOCATION = '_posts/'
-HEADER_STRING = 'layout: page\ntitle: "{title}"\ndate: {date} -0000\ncategories: {categories}\n'
+HEADER_STRING = '---\nlayout: page\ntitle: "{title}"\ndate: {date} -0000\ncategories: {categories}\n---\n'
 
 def prepare_url(postname):
     convert_spaces = postname.replace(" ", "_")
