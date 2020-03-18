@@ -14,11 +14,3 @@ This project sets out to begin answering some of these questions (to the best of
 1. [Damage Report](intro.md) - in depth overview of the situation
 2. [Touching Down](landing.md) - the math behind landing a spacecraft
 3. [Breath of Fresh Air](makingair.md) - managing the most essential resource using phytoplankton
-
-<ul>
-  {% for post in site.posts %}
-    <li>
-      <a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
