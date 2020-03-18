@@ -16,7 +16,7 @@ Luck, the saucy minx, deemed me unworthy of an easy escape and the primary contr
 I drifted for weeks (earth standard), before I began to approach an unfamiliar planetary body.  Something on the outer reaches I'm sure. In a backwater system like this, I'd be willing to bet it barely gets a visitor a century.  Even so, I guess Luck was listening for once.  The chances of accidentally getting caught in a planets gravity well is astronomically low. 
 
 {:refdef: style="text-align: center;"}
-![my new home](/assets/introduction/TRAPPIST-1e_artist_impression_2018_small.png)
+![my new home]({{ site.baseurl }}/assets/introduction/TRAPPIST-1e_artist_impression_2018_small.png)
 {: refdef}
 {:refdef: style="text-align: center;"}
 My new home...
@@ -50,13 +50,14 @@ The atmosphere also seems to have a similar makeup to mars, with the major expec
 | Ar | 1.6%|
 | O | 0.13%|
 
-That's unfortunate, but not unexpected.  The universe is mostly inhospitable to life.  I guess I'm just lucky this planet isn't on fire.
+That's unfortunate, but not unexpected.  The universe is mostly inhospitable to life.  I guess I'm just fortunate this planet isn't on fire.
 
-Also, minor amounts of: water, nitrogen oxide, neon, hydrogen-deuterium-oxygen, krypton and xenon
+Also, there seems to be minor amounts of: water, nitrogen oxide, neon, hydrogen-deuterium-oxygen, krypton and xenon
 
 I'm also detecting a lot of minerals in the forms of feldspar, pyroxenes and olivine.  These could prove very useful.
 
 ### My Supplies
+Thankfully the shuttle is well stocked for long duration survival, I have some supplies and tools:
 * A shelter - a decently sized living space, approximately the size of, you know, a human apartment, maybe?  I have enough oxygen and food for several months, but it won't last forever.
 * Solar power - I have a small solar panel and battery that I can use to power tools and experiments.  I'll assume that, while I don't have unlimited power, I have effectively unlimited capacity.
 * Basic tools (electronic and mechanical tools) - things like soldering irons, drills, screwdrivers, electronics testing tools, etc.
