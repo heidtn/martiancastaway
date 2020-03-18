@@ -16,7 +16,7 @@ Luck, the saucy minx, deemed me unworthy of an easy escape and the primary contr
 I drifted for weeks (earth standard), before I began to approach an unfamiliar planetary body.  Something on the outer reaches I'm sure. In a backwater system like this, I'd be willing to bet it barely gets a visitor a century.  Even so, I guess Luck was listening for once.  The chances of accidentally getting caught in a planets gravity well is astronomically low. 
 
 {:refdef: style="text-align: center;"}
-![my new home](/assets/introduction/TRAPPIST-1e_artist_impression_2018_small.png)
+![my new home](/_assets/introduction/TRAPPIST-1e_artist_impression_2018_small.png)
 {: refdef}
 {:refdef: style="text-align: center;"}
 My new home...
