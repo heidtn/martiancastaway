@@ -11,7 +11,7 @@ Things have gone very, very wrong.
 
 A micrometoroid storm hit my transport ship tearing the thing to near shreds.  After the main torch engine was disabled, I fled in a shuttle like the others.
 
-Luck, the saucy minx, deemed me unworthy of an easy escape and the primary control system on the shuttle was completely destroyed.  No Guidance, navigation, and control (GNC); no communication; no nothing. Yaaaay...
+Luck, the saucy minx, deemed me unworthy of an easy escape and the primary control system on the shuttle was completely destroyed.  No Guidance, navigation, and control (GNC); no communication; no nothing.
 
 I drifted for weeks (earth standard), before I began to approach an unfamiliar planetary body.  Something on the outer reaches I'm sure. In a backwater system like this, I'd be willing to bet it barely gets a visitor a century.  Even so, I guess Luck was listening for once.  The chances of accidentally getting caught in a planets gravity well is astronomically low. 
 
