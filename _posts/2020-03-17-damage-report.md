@@ -28,6 +28,15 @@ I'm running out of supplies, and I can't last up here forever.  I think my only 
 ### The Planet
 While my GNC might be out, the ships distributed systems seem mostly functional, including the sensors.  Here's what I know about the planet so far:
 
+The atmosphere seems to have a similar makeup to mars, with the major expection being that atmospheric density is 1 ATM earth standard and has an average temperature of -30C.
+
+| Element | Percentage |
+|-------|--------|---------|
+| CO<sub>2</sub> | 95.32% |
+| N | 2.7%|
+| Ar | 1.6%|
+| O | 0.13%|
+
 The primary chemical composition of the regolith seems to be:
 
 | Element | Percentage |
@@ -40,15 +49,6 @@ The primary chemical composition of the regolith seems to be:
 | Other trace minerals | 19.5% |
 
 Some good stuff there, lots of raw materials that will make rebuilding easier.  
-
-The atmosphere also seems to have a similar makeup to mars, with the major expection being that atmospheric density is 1 ATM earth standard
-
-| Element | Percentage |
-|-------|--------|---------|
-| CO<sub>2</sub> | 95.32% |
-| N | 2.7%|
-| Ar | 1.6%|
-| O | 0.13%|
 
 That's unfortunate, but not unexpected.  The universe is mostly inhospitable to life.  I guess I'm just fortunate this planet isn't on fire.
 

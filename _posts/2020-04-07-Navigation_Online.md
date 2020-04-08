@@ -14,7 +14,7 @@ I can now communicate with the ship's base sensors and actuators.  Problem is, t
 The ship sensors can tell me where I am relative to the planet, but in order to land this ship, I need to know where I'm going.  A little knowledge of orbital mechanics is all it takes to turn basic information into something useful.  Time to get started.
 
 ### Orbits 101
-*Author's Note: If you haven't read the first article 'taking control' on interfacing with the spacecraft, do that now.  I'm using python numpy for the matrix math and mayavi for the plotting.  Both can easily be installed with pip.* 
+*Author's Note: If you haven't read the first article 'taking control' on interfacing with the spacecraft, do that now.  I'm using python numpy for the matrix math and mayavi for the plotting.  Both can easily be installed with pip.  I assume you know a bit about vectors.* 
 
 It turns out, there isn't a lot of information needed to plot basic orbits.  A long time ago, a smart guy called Newton figured it out.  He formulated Newton's Law of Universal Gravitation:
 
@@ -37,12 +37,12 @@ OrbitConfig = namedtuple("OrbitConfig", ["mu",
 
 class SimulateOrbit:
     def __init__(self, config):
-        self.mu = config.mu  							# KRPC uses mu which is just G*M in the Law of Universal Gravitation
-        self.planet_radius = config.planet_radius		# I add the planet radius as an input so I can plot it
+        self.mu = config.mu  # KRPC uses mu which is just G*M in the Law of Universal Gravitation
+        self.planet_radius = config.planet_radius  # I add the planet radius as an input so I can plot it
         
     def run_simulation(self, start_position, start_velocity, dt=1, iterations=100000):
-        position = np.array(start_position)
-        velocity = np.array(start_velocity)
+        position = np.array(start_position)		# Position is a vector [Px, Py, Pz]
+        velocity = np.array(start_velocity)		# Velocity is a vector [Vx, Vy, Vz]
         positions = []
         velocities = []
 
@@ -117,3 +117,92 @@ And all it takes to plot the orbit on live data from my spacecraft:
     autopilot = AutoPilot()
     autopilot.plot_orbit()
 ```
+
+And there I am.  Also there I go.  That's a pretty high orbit, and I'm not sure I have enough fuel to do a full landing.  I'm going to have to aerobrake.
+
+
+### Bit of a drag
+By dipping the ship just a bit into the atmosphere I an slow down enough for a landing.  But my current model doesn't tell me how the atmosphere will affect my spacecraft.  I'm going to need to add drag forces into the equation to determine my decelleration.  The equation is as follows:
+
+$$F_D = \frac{1}{2} C \rho A v^2$$
+
+Where $$F_D$$ is the force due to drag, C is the coeffecient of drag $$\rho$$ is the desnity of the medium, A is the cross section area exposed to the drag forces, and finally v is the current velocity.  Adding this into my model doesn't take a whole lot of work with the Euler method, but getting some of these constants does.  C can be figured out experimentally which I've done using my spacecraft simulator (**plugging values into ksp until my predicted path matches my actual**), A is assumed to be the area of the spacecrafts circular section, and we know v for any given time.  $$\rho$$ is a little harder, but thankfully kRPC handles that calculation for us.  I'll update the SimulateOrbit class to take in the new constants and calculate our drag.
+
+```python
+OrbitConfig = namedtuple("OrbitConfig", ["mu",
+                                         "planet_radius",
+                                         "cross_section_area",
+                                         "drag_coefficient",
+                                         "density_function",
+                                         "ship_mass"])
+
+
+class SimulateOrbit:
+    def __init__(self, config):
+        self.mu = config.mu
+        self.planet_radius = config.planet_radius
+        self.cross_section_area = config.cross_section_area
+        self.drag_coefficient = config.drag_coefficient
+        self.density_function = config.density_function		# This is just a function pointer to the kRPC function call to get the density at an altitude
+        self.ship_mass = config.ship_mass					# We need the ship mass to convert drag force to drag decelleration (F=ma)
+
+    def run_simulation(self, start_position, start_velocity, dt=1, iterations=100000):
+        position = np.array(start_position)
+        velocity = np.array(start_velocity)
+        positions = []
+        velocities = []
+
+        for i in range(iterations):
+            acceleration = self.get_gravity(position) + self.get_drag(position, velocity) # Simply adding the two decelerations is enough.
+            velocity += acceleration * dt
+            position += velocity * dt
+            positions.append(np.array(position))
+            velocities.append(np.array(velocity))
+            if np.linalg.norm(position) < self.planet_radius:	# Stop the simulation if we hit the planet!
+                break
+        
+        return np.array(positions), np.array(velocities)
+        
+    def get_drag(self, position, velocity):
+        v_mag = np.linalg.norm(velocity)						# pythagorean theorem to get the magnitude of our velocity
+        density = self.density_function(position)				# Call the kRPC density function
+        drag_force = 0.5 * density * self.drag_coefficient * self.cross_section_area * v_mag**2.0 # Calculate the drag force
+        drag_decelleration_mag = drag_force / self.ship_mass	# Convert drag force to a deceleration using Newton's 2nd law: F=ma
+        # This is where things get a little more complicated again, the direction of the drag force is opposite the direction of motion
+        # i.e. the opposite direction of the velocity.  We do a similar trick to the gravity acceleration to calculate the drag
+        # deceleration vector direction.
+        v_unit_vec = velocity / v_mag							
+        drag_decelleration_vec = -v_unit_vec * drag_decelleration_mag
+        return drag_decelleration_vec
+```
+
+And of course, an update to the autopilot to account for these new additions.
+
+```python
+CROSS_SECTION_AREA = 5.381
+COEFFICIENT_OF_DRAG = 1.455
+
+class AutoPilot:
+	"""PREVIOUS CODE STILL HERE"""
+	def get_orbit_config(self):
+        mu = self.body.gravitational_parameter
+        radius = self.body.equatorial_radius
+        cross_section_area = CROSS_SECTION_AREA
+        drag_coefficient = COEFFICIENT_OF_DRAG
+        ship_mass = self.vessel.mass
+        ref_frame = self.body.orbital_reference_frame
+        # We have to do some tricks with the density function to make it
+        # simple for our orbital calculator.  We make it so it defaults
+        # to the orbital reference frame and our calculator no longer
+        # needs to worry about reference frames.
+        density_function = lambda x: self.body.atmospheric_density_at_position(x, ref_frame)
+        config = calculate_orbit.OrbitConfig(mu=mu, planet_radius=radius, cross_section_area=cross_section_area,
+                                             drag_coefficient=drag_coefficient, density_function=density_function,
+                                             ship_mass=ship_mass)
+        return config
+
+```
+
+Et Voila. I'll slow the shop down a bit to start dipping into the atmosphere.  Then I run the sim to see where I am going to land.  I'm aiming for the equator, this planet is pretty cold so that will be my best chance for somewhere warm.
+
+I've got some downtime so I'll need to make sure the craft can survive the landing, and of course, I'll need to write an autopilot to land it.

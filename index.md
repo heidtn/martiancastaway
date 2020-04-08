@@ -6,7 +6,7 @@ Many years ago, Andy Weir released the Martian.  There was a certain magic to it
 
 This project sets out to begin answering some of these questions (to the best of my ability).  In the chapters below, I will be taking the role of a castaway martian, marooned on a strange planet with nothing but minimal gear and his own wits to keep him alive.
 
-I make a few assumptions in most of my explanations.  Namely that you have a high school level understanding of Calculus, some basic matrix math, and some basic experience with programming (Python and some C++).  Some of the articles may be beyond these prerequisites though, but they will be marked as such so feel free to skip them.
+My audience is people interested in learning more about the math and engineering behind space sciences.  To that end, I make a few assumptions in most of my explanations.  Namely that you have a high school level understanding of Calculus, some basic matrix math (working with matrices and vectors), and some basic experience with programming (Python and some C++).  Some of the articles may be beyond these prerequisites though, but they will be marked as such so feel free to skip them.
 
 ### Chapters
 
