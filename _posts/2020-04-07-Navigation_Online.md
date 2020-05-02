@@ -11,7 +11,9 @@ categories: None
 
 I can now communicate with the ship's base sensors and actuators.  Problem is, the data coming from the ship is pretty simple.  Raw data mostly, but with a little math and ingenuity, I can make this into something useful.
 
-The ship sensors can tell me where I am relative to the planet, but in order to land this ship, I need to know where I'm going.  A little knowledge of orbital mechanics is all it takes to turn basic information into something useful.  Time to get started.
+The ship sensors can tell me where I am relative to the planet, but in order to land this ship, I need to know where I'm going.  A little knowledge of orbital mechanics is all it takes to turn basic information into something useful.  Speaking of where I'm going, I don't have a name for this place other than 'the planet'.  I was thinking Semotus, an old Latin word that means 'way the hell out there'.  Fitting.
+
+Anyways, time to get started.
 
 ### Orbits 101
 *Author's Note: If you haven't read the first article 'taking control' on interfacing with the spacecraft, do that now.  I'm using python numpy for the matrix math and mayavi for the plotting.  Both can easily be installed with pip.  I assume you know a bit about vectors.* 
@@ -122,11 +124,11 @@ And there I am.  Also there I go.  That's a pretty high orbit, and I'm not sure 
 
 
 ### Bit of a drag
-By dipping the ship just a bit into the atmosphere I an slow down enough for a landing.  But my current model doesn't tell me how the atmosphere will affect my spacecraft.  I'm going to need to add drag forces into the equation to determine my decelleration.  The equation is as follows:
+By dipping the ship just a bit into the atmosphere I can slow down enough for a landing.  But my current model doesn't tell me how the atmosphere will affect my spacecraft.  I'm going to need to add drag forces into the equation to determine my decelleration.  The drag equation is as follows:
 
 $$F_D = \frac{1}{2} C \rho A v^2$$
 
-Where $$F_D$$ is the force due to drag, C is the coeffecient of drag $$\rho$$ is the desnity of the medium, A is the cross section area exposed to the drag forces, and finally v is the current velocity.  Adding this into my model doesn't take a whole lot of work with the Euler method, but getting some of these constants does.  C can be figured out experimentally which I've done using my spacecraft simulator (**plugging values into ksp until my predicted path matches my actual**), A is assumed to be the area of the spacecrafts circular section, and we know v for any given time.  $$\rho$$ is a little harder, but thankfully kRPC handles that calculation for us.  I'll update the SimulateOrbit class to take in the new constants and calculate our drag.
+Where $$F_D$$ is the force due to drag, C is the coeffecient of drag $$\rho$$ is the desnity of the medium, A is the cross section area exposed to the drag forces, and finally v is the current velocity.  Adding this into my model doesn't take a whole lot of work with the Euler method, but getting some of these constants does.  C can be figured out experimentally which I've done using my spacecraft simulator (**plugging values into ksp until my predicted path matches my actual**), A is assumed to be the area of the spacecrafts circular section, and we know v for any given time.  $$\rho$$ is a little harder, but thankfully kRPC handles that calculation for me.  I'll update the SimulateOrbit class to take in the new constants and calculate our drag.
 
 ```python
 OrbitConfig = namedtuple("OrbitConfig", ["mu",
@@ -203,6 +205,8 @@ class AutoPilot:
 
 ```
 
-Et Voila. I'll slow the shop down a bit to start dipping into the atmosphere.  Then I run the sim to see where I am going to land.  I'm aiming for the equator, this planet is pretty cold so that will be my best chance for somewhere warm.
+Et Voila. I'll slow the ship down a bit to start dipping into the atmosphere.  Then I run the sim to see where I am going to land.  I'm aiming for the equator, this planet is pretty cold so that will be my best chance for somewhere warm.
 
-I've got some downtime so I'll need to make sure the craft can survive the landing, and of course, I'll need to write an autopilot to land it.
+Only one thing remains, landing the craft.  I'll need to write an autopilot to do it for me.
+
+-/EOT/ - MC
