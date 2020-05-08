@@ -6,27 +6,59 @@ categories: None
 ---
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
+*Author's Note: If you haven't read the first article 'taking control' on interfacing with the spacecraft, do that now.  I'm using python numpy for the matrix math and mayavi for the plotting.  Both can easily be installed with pip.  I assume you know about vector math and a little about partial differential equations.* 
+
+
 
 **SHIPLOG #0003 T+2120-04-07T23:23:42.299564**
 
-I can now communicate with the ship's base sensors and actuators.  Problem is, the data coming from the ship is pretty simple.  Raw data mostly, but with a little math and ingenuity, I can make this into something useful.
+I can now communicate with the ship's base sensors and actuators.  Problem is, the data coming from the ship is pretty simple.  Raw data mostly, but with a little math and ingenuity, I can make this into something incredibly useful.
 
-The ship sensors can tell me where I am relative to the planet, but in order to land this ship, I need to know where I'm going.  A little knowledge of orbital mechanics is all it takes to turn basic information into something useful.  Speaking of where I'm going, I don't have a name for this place other than 'the planet'.  I was thinking Semotus, an old Latin word that means 'way the hell out there'.  Fitting.
+The ship sensors can tell me where I am relative to the planet, but in order to land this ship, I need to know where I'm going.  A little knowledge of orbital mechanics is all it takes to turn basic information into something that will keep me alive.  Speaking of where I'm going, I don't have a name for this place other than 'the planet'.  I was thinking 'Semot', from an old Latin word that means 'way the hell out there'.  Fitting.
 
-Anyways, time to get started.
+Now that my adversary is named, it's time to get started.
 
 ### Orbits 101
-*Author's Note: If you haven't read the first article 'taking control' on interfacing with the spacecraft, do that now.  I'm using python numpy for the matrix math and mayavi for the plotting.  Both can easily be installed with pip.  I assume you know a bit about vectors.* 
 
-It turns out, there isn't a lot of information needed to plot basic orbits.  A long time ago, a smart guy called Newton figured it out.  He formulated Newton's Law of Universal Gravitation:
+It turns out, there isn't a lot of data needed to plot basic orbits.  A long time ago, a smart guy called Newton figured it all out.  He formulated Newton's Law of Universal Gravitation:
 
 $$g = G \times \frac{M}{r^2}$$
 
-The acceleration due to gravity (g) is equal to a magic number known as the gravitational constant (G) times the mass of the planet divided by the squared distance from the center of the planet (r).  So how do I figure out the rest? Well let's look at what I know: I know my current position, current velocity, and I can calculate the accelerations acting on our spacecraft at any point using my known current position.  What I really want to try to figure out is what my next position is going to be.  One easy way to do this with the available information is to perform Euler integration.  The basic concept is simple:
+Where:
+* g - Acceleration due to gravity
+* G - G is the gravitational constant
+* r - The distance to the planet
 
-$$y_{t+\Delta t} = y_{t} + \Delta t \times y'_{t}$$
+So how do I figure out the rest? Well let's look at what I know: I know my current position, current velocity, and I can calculate the accelerations acting on our spacecraft at any point using my known current position.  What I really want to try to figure out is what my next position is going to be.  This inclues a differential equation that can be difficult to solve analytically.  One easy way to do this with the available information is to perform Euler integration.  The basic concept is simple:
 
-Where my position (y) at time t plus some small amount of time later (delta t) is roughly equal to our position at time t plus our derivative at time t times that small amount of time.  So what's the derivative in this case?  Well the derivative of position is just velocity.  Great!  But I don't yet know what our velocity is supposed to be, after all it's changing over time too, due to gravity.  Well, it turns out I can do the same thing for my velocity! The derivative of my velocity is my acceleration, and the only thing accelerating my ship right now, is gravity which I now know how to calculate.  Time to put it all together in some code:
+$$x_{t+\Delta t} = x_{t} + \Delta t \times x'_{t}$$
+
+Where:
+* x - My position
+* x' - The derivative of my position, my velocity
+* t - The current time
+* $$\Delta t$$ - An arbitrarily small amount of time
+
+Great!  But I don't yet know what our velocity is supposed to be, after all it's changing over time too, due to gravity.  Well, it turns out I can do the same thing for my velocity! The derivative of my velocity is my acceleration, and the only thing accelerating my ship right now, is gravity which I now know how to calculate without needing any more derivatives.
+
+So if y is my position, y' is my velocity, and y'' is my acceleration, I get the following equations:
+
+$$x_{t+\Delta t} = x_{t} + \Delta t \times x'_{t}$$
+
+$$x'_{t+\Delta t} = x'_{t} + \Delta t \times x''_{t}$$
+
+$$x''_{t} = G \times \frac{M}{r^2}$$
+
+I can then just create a loop that first finds the next time step and then iterate on this new position I just calculated.  Euler integration isn't incredibly accurate, but it's more than sufficient for my task and it's simplicity makes it very convenient.  Alternatives would be runge-kutta integration, ODE45, and even trapezoidal integration would be more accurate.
+
+This is all one dimensional though, and I want to plot everything in three dimensions.  Fortunately the same math extends easily to vectors without major changes.  The only addition is the following to Newton's Universal Law:
+
+$$x''_{t} = G \times \frac{M}{r^2} \hat{\mathbf{r}}$$
+
+The only addition here is to add a unit vector $$\hat{\mathbf{r}}$$ that points towards the center of gravitation.  In this case, that's just the center of the planet.  Normalizing my position vector and flipping it will give me this unit vector.
+
+
+Time to put it all together in some code:
 
 ```python
 from collections import namedtuple
@@ -75,7 +107,7 @@ class SimulateOrbit:
                    tube_radius=tube_size, colormap='Spectral')
 		mlab.show()
 ```  
-Not too complicated, thankfully.  I've explained my process in the comments for the code.  Now's probably a good time to start on my autopilot system:
+Not too long, thankfully.  I've explained my process in the comments for the code.  Now's probably a good time to start on my autopilot system:
 
 ```python
 import krpc
@@ -119,6 +151,10 @@ And all it takes to plot the orbit on live data from my spacecraft:
     autopilot = AutoPilot()
     autopilot.plot_orbit()
 ```
+
+{:refdef: style="text-align: center;"}
+![high orbit]({{ site.baseurl }}/assets/touching_down/high_orbit.png)
+{: refdef}
 
 And there I am.  Also there I go.  That's a pretty high orbit, and I'm not sure I have enough fuel to do a full landing.  I'm going to have to aerobrake.
 
@@ -205,8 +241,12 @@ class AutoPilot:
 
 ```
 
-Et Voila. I'll slow the ship down a bit to start dipping into the atmosphere.  Then I run the sim to see where I am going to land.  I'm aiming for the equator, this planet is pretty cold so that will be my best chance for somewhere warm.
+Et Voila. I'll do a quick test burn at apogee to ensure everything's working.
 
-Only one thing remains, landing the craft.  I'll need to write an autopilot to do it for me.
+{:refdef: style="text-align: center;"}
+![high orbit]({{ site.baseurl }}/assets/touching_down/decaying_orbit.png)
+{: refdef}
+
+The next step is to find a good place to land and an initial burn that will put me close to that spot.
 
 -/EOT/ - MC
