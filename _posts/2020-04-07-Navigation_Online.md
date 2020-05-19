@@ -2,7 +2,7 @@
 layout: page
 title: "Navigation Online"
 date: 2020-04-07 23:20:42 -0000
-categories: None
+categories: introduction
 ---
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 

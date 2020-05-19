@@ -2,7 +2,7 @@
 layout: page
 title: "Taking Control"
 date: 2020-03-18 15:53:27 -0000
-categories: None
+categories: introduction
 ---
 
 **SHIPLOG #0002 T+2120-03-18T15:53:27.299564**
