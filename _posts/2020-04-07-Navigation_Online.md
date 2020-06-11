@@ -71,8 +71,7 @@ import numpy as np
 from mayavi.mlab import points3d, plot3d
 from mayavi import mlab
 
-OrbitConfig = namedtuple("OrbitConfig", ["mu",
-										 "planet_radius"])
+OrbitConfig = namedtuple("OrbitConfig", ["mu", "planet_radius"])
 
 class SimulateOrbit:
     def __init__(self, config):
@@ -80,15 +79,15 @@ class SimulateOrbit:
         self.planet_radius = config.planet_radius  # I add the planet radius as an input so I can plot it
         
     def run_simulation(self, start_position, start_velocity, dt=1, iterations=100000):
-        position = np.array(start_position)		# Position is a vector [Px, Py, Pz]
-        velocity = np.array(start_velocity)		# Velocity is a vector [Vx, Vy, Vz]
+        position = np.array(start_position)  # Position is a vector [Px, Py, Pz]
+        velocity = np.array(start_velocity)  # Velocity is a vector [Vx, Vy, Vz]
         positions = []
         velocities = []
 
         for i in range(iterations):
             acceleration = self.get_gravity(position)	# Only the position is required to calcualte gravity
-            velocity += acceleration * dt				# Euler integration on the velocity
-            position += velocity * dt					# Euler integration on the position
+            velocity += acceleration * dt  # Euler integration on the velocity
+            position += velocity * dt  # Euler integration on the position
             positions.append(np.array(position))
             velocities.append(np.array(velocity))
         
@@ -108,8 +107,7 @@ class SimulateOrbit:
         f = mlab.figure(bgcolor=(0, 0, 0))
         points3d([0], [0], [0], scale_factor=self.planet_radius*2.0, resolution=128, color=(0, 0.5, 0.5))  # Plot the planet
         tube_size = self.planet_radius / 100.0	# Scale the trajectory line thickness so it shows up in the plot.
-        s = plot3d(position_array[:, 0], position_array[:, 1], position_array[:, 2],
-                   tube_radius=tube_size, colormap='Spectral')
+        s = plot3d(position_array[:, 0], position_array[:, 1], position_array[:, 2], tube_radius=tube_size, colormap='Spectral')
 		mlab.show()
 ```  
 Not too long, thankfully.  I've explained my process in the comments for the code.  Now's probably a good time to start on my autopilot system:
@@ -186,8 +184,8 @@ class SimulateOrbit:
         self.planet_radius = config.planet_radius
         self.cross_section_area = config.cross_section_area
         self.drag_coefficient = config.drag_coefficient
-        self.density_function = config.density_function		# This is just a function pointer to the kRPC function call to get the density at an altitude
-        self.ship_mass = config.ship_mass					# We need the ship mass to convert drag force to drag decelleration (F=ma)
+        self.density_function = config.density_function  # This is just a function pointer to the kRPC function call to get the density at an altitude
+        self.ship_mass = config.ship_mass  # We need the ship mass to convert drag force to drag decelleration (F=ma)
 
     def run_simulation(self, start_position, start_velocity, dt=1, iterations=100000):
         position = np.array(start_position)
@@ -207,10 +205,10 @@ class SimulateOrbit:
         return np.array(positions), np.array(velocities)
         
     def get_drag(self, position, velocity):
-        v_mag = np.linalg.norm(velocity)						# pythagorean theorem to get the magnitude of our velocity
-        density = self.density_function(position)				# Call the kRPC density function
-        drag_force = 0.5 * density * self.drag_coefficient * self.cross_section_area * v_mag**2.0 # Calculate the drag force
-        drag_decelleration_mag = drag_force / self.ship_mass	# Convert drag force to a deceleration using Newton's 2nd law: F=ma
+        v_mag = np.linalg.norm(velocity)  # pythagorean theorem to get the magnitude of our velocity
+        density = self.density_function(position)  # Call the kRPC density function
+        drag_force = 0.5 * density * self.drag_coefficient * self.cross_section_area * v_mag**2.0  # Calculate the drag force
+        drag_decelleration_mag = drag_force / self.ship_mass  # Convert drag force to a deceleration using Newton's 2nd law: F=ma
         # This is where things get a little more complicated again, the direction of the drag force is opposite the direction of motion
         # i.e. the opposite direction of the velocity.  We do a similar trick to the gravity acceleration to calculate the drag
         # deceleration vector direction.
