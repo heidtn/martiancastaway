@@ -6,7 +6,7 @@ Many years ago, Andy Weir released the Martian.  There was a certain magic to it
   
 This project sets out to begin answering some of these questions (to the best of my ability as a spacecraft engineer).  In the chapters below, I will be taking the role of a castaway martian, marooned on a strange planet with nothing but minimal gear and his own wits to keep him alive.  
 
-My audience is people interested in learning more about the math and engineering behind space travel.  To that end, I make a few assumptions in most of my explanations.  Namely that you have a decent understanding of Calculus, matrix math (working with matrices and vectors), and some basic experience with programming (Python and some C++).  My hope is that these articles can serve as both tutorials for people interested in these things as well as a compelling read to follow along to show just what is involved in getting humans to survive on their own in the deep cosmos.  
+My audience is people interested in learning more about the math and engineering behind space travel.  To that end, I make a few assumptions in most of my explanations.  Namely that you have a decent understanding of Calculus, matrix math (working with matrices and vectors), and some basic experience with programming (Python and some C++).  My hope is that these articles can serve as both tutorials for people interested in these concepts as well as a compelling read to follow along to show just what is involved in getting humans to survive on their own in the deep cosmos.  
 
 Please enjoy!  
 -/EoT/ - Martian Castaway
@@ -21,7 +21,7 @@ In this series I cover how to perform celestial navigation using Kerbal Space Pr
 4. [Eyes On](introduction/2020/05/07/Eyes_On.html) - Monocular surface reconstruction to determine good landing zones
 5. [Shoot for the Moon](2020-03-18-taking_control.md) - COMING SOON! Utilizing shooting methods to calculate an optimal burn to land my ship
 6. [Structurally Sound](2020-03-18-taking_control.md) - COMING SOON! Creating a finite element solver to validate stress limits on the spacecraft
-7. [G-FOLD](introduction/2020/03/18/taking_control.html) - Writing a convex fuel optimal trajectory calculation system
-8. [Contact Light](introduction/2020/03/18/taking_control.html) - Building a trajectory tracking algorithm 
+7. [G-FOLD](introduction/2020/05/09/G-FOLD.html) - Writing a convex fuel optimal trajectory calculation system
+8. [Contact Light](introduction/2020/05/18/Contact_Light.html) - Building a trajectory tracking algorithm 
 
 ---

@@ -28,8 +28,11 @@ Where:
 * g - Acceleration due to gravity
 * G - G is the gravitational constant
 * r - The distance to the planet
+* M - The mass of the planet
 
-So how do I figure out the rest? Well let's look at what I know: I know my current position, current velocity, and I can calculate the accelerations acting on our spacecraft at any point using my known current position.  What I really want to try to figure out is what my next position is going to be.  This inclues a differential equation that can be difficult to solve analytically.  One easy way to do this with the available information is to perform Euler integration.  The basic concept is simple:
+This says that if I know my position and the mass of the planet (both of which I get from my sensors) then I can calculate how quickly I'm accelerating towards the planet.
+
+So how do I figure out the rest? Well let's look at what I know: I know my current position, current velocity, and I can calculate the accelerations acting on our spacecraft at any point using my known current position.  What I really want to try to figure out is what my next position is going to be some time from now.  This inclues a differential equation that can be difficult to solve analytically.  However solving the equation numerically is a sraightforward process. One easy way to solve this with the available information is to perform Euler integration.  The basic concept is simple:
 
 $$x_{t+\Delta t} = x_{t} + \Delta t \times x'_{t}$$
 
@@ -39,7 +42,9 @@ Where:
 * t - The current time
 * $$\Delta t$$ - An arbitrarily small amount of time
 
-Great!  But I don't yet know what our velocity is supposed to be, after all it's changing over time too, due to gravity.  Well, it turns out I can do the same thing for my velocity! The derivative of my velocity is my acceleration, and the only thing accelerating my ship right now, is gravity which I now know how to calculate without needing any more derivatives.
+So if I know my current position and I want to calculate my position some small delta t later, I can multiply my velocity by that small delta t and add it to my current position which will give me a prediction for my next one! This only is true if my velocity is linear, but for small enough delta t it works really well.
+
+However, I don't yet know what my velocity is supposed to be, after all it's changing over time too, due to gravity.  Well, it turns out I can do the same thing for my velocity! The derivative of my velocity is my acceleration, and the only thing accelerating my ship right now, is gravity which I now know how to calculate without needing any more derivatives.
 
 So if y is my position, y' is my velocity, and y'' is my acceleration, I get the following equations:
 
@@ -49,7 +54,7 @@ $$x'_{t+\Delta t} = x'_{t} + \Delta t \times x''_{t}$$
 
 $$x''_{t} = G \times \frac{M}{r^2}$$
 
-I can then just create a loop that first finds the next time step and then iterate on this new position I just calculated.  Euler integration isn't incredibly accurate, but it's more than sufficient for my task and it's simplicity makes it very convenient.  Alternatives would be runge-kutta integration, ODE45, and even trapezoidal integration would be more accurate.
+In software, I can then create a loop that first finds the next time step and then iterate on this new position I just calculated.  Euler integration isn't incredibly accurate, but it's more than sufficient for my task and it's simplicity makes it very convenient.  Alternatives would be runge-kutta integration, ODE45, and even trapezoidal integration would be more accurate.
 
 This is all one dimensional though, and I want to plot everything in three dimensions.  Fortunately the same math extends easily to vectors without major changes.  The only addition is the following to Newton's Universal Law:
 
@@ -90,11 +95,11 @@ class SimulateOrbit:
         return np.array(positions), np.array(velocities)
         
     def get_gravity(self, position):
-        distance_from_center = np.linalg.norm(position)						# Pythagorean theorem yields the distance from the center 
-        gravitational_acceleration = self.mu / distance_from_center**2.0	# Calculate Newton's Law of Universal Gravitation
+        distance_from_center = np.linalg.norm(position)  # Pythagorean theorem yields the distance from the center 
+        gravitational_acceleration = self.mu / distance_from_center**2.0  # Calculate Newton's Law of Universal Gravitation
         # This is where things get a little harder to understand, the acceleration due to gravity has a direction, this direction
         # is pointed from the spacecraft towards the center of the planet.  We can use the position vector which points the other way
-        # and just multiply by negative 1 to flip the direction.
+        # and just multiply it by negative 1 to flip the direction towards the planet.
         unit_position = position / distance_from_center						
         gravity_vector = -1 * unit_position * gravitational_acceleration
         return gravity_vector
