@@ -34,13 +34,13 @@ This says that if I know my position and the mass of the planet (both of which I
 
 So how do I figure out the rest? Well let's look at what I know: I know my current position, current velocity, and I can calculate the accelerations acting on our spacecraft at any point using my known current position.  What I really want to try to figure out is what my next position is going to be some time from now.  This inclues a differential equation that can be difficult to solve analytically.  However solving the equation numerically is a sraightforward process. One easy way to solve this with the available information is to perform Euler integration.  The basic concept is simple:
 
-$$x_{t+\Delta t} = x_{t} + \Delta t \times x'_{t}$$
+$$x_{t+\Delta t} = x_{t} + \Delta t x'_{t}$$
 
 Where:
 * x - My position
 * x' - The derivative of my position, my velocity
 * t - The current time
-* $$\Delta t$$ - An arbitrarily small amount of time
+* $$\Delta t$$ - (delta t) An arbitrarily small amount of time
 
 So if I know my current position and I want to calculate my position some small delta t later, I can multiply my velocity by that small delta t and add it to my current position which will give me a prediction for my next one! This only is true if my velocity is linear, but for small enough delta t it works really well.
 
