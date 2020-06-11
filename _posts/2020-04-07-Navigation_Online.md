@@ -54,13 +54,13 @@ $$x'_{t+\Delta t} = x'_{t} + \Delta t \times x''_{t}$$
 
 $$x''_{t} = G \times \frac{M}{r^2}$$
 
-In software, I can then create a loop that first finds the next time step and then iterate on this new position I just calculated.  Euler integration isn't incredibly accurate, but it's more than sufficient for my task and it's simplicity makes it very convenient.  Alternatives would be runge-kutta integration, ODE45, and even trapezoidal integration would be more accurate.
+In software, I can then create a loop that first finds the next time step and then iterate on this new position I just calculated.  Euler integration isn't incredibly accurate, but it's more than sufficient for my task and it's simplicity makes it very convenient.  Alternatives would be runge-kutta integration, ODE45, and even trapezoidal integration.
 
-This is all one dimensional though, and I want to plot everything in three dimensions.  Fortunately the same math extends easily to vectors without major changes.  The only addition is the following to Newton's Universal Law:
+This is all one dimensional though, and I want to plot everything in three dimensions.  Fortunately the same math extends easily to vectors without major changes.  The only change is the following to Newton's Universal Law:
 
 $$x''_{t} = G \times \frac{M}{r^2} \hat{\mathbf{r}}$$
 
-The only addition here is to add a unit vector $$\hat{\mathbf{r}}$$ that points towards the center of gravitation.  In this case, that's just the center of the planet.  Normalizing my position vector and flipping it will give me this unit vector.
+The addition here is to add a unit vector $$\hat{\mathbf{r}}$$ that points towards the center of gravitation.  In this case, that's just the center of the planet.  Normalizing my position vector and flipping it will give me this unit vector.
 
 
 Time to put it all together in some code:
