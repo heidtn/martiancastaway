@@ -108,7 +108,7 @@ class SimulateOrbit:
         points3d([0], [0], [0], scale_factor=self.planet_radius*2.0, resolution=128, color=(0, 0.5, 0.5))  # Plot the planet
         tube_size = self.planet_radius / 100.0	# Scale the trajectory line thickness so it shows up in the plot.
         s = plot3d(position_array[:, 0], position_array[:, 1], position_array[:, 2], tube_radius=tube_size, colormap='Spectral')
-		mlab.show()
+        mlab.show()
 ```  
 Not too long, thankfully.  I've explained my process in the comments for the code.  Now's probably a good time to start on my autopilot system:
 
@@ -224,8 +224,8 @@ CROSS_SECTION_AREA = 5.381
 COEFFICIENT_OF_DRAG = 1.455
 
 class AutoPilot:
-	"""PREVIOUS CODE STILL HERE"""
-	def get_orbit_config(self):
+    """PREVIOUS CODE STILL HERE"""
+    def get_orbit_config(self):
         mu = self.body.gravitational_parameter
         radius = self.body.equatorial_radius
         cross_section_area = CROSS_SECTION_AREA
