@@ -27,6 +27,9 @@ theme: jekyll-theme-console
 
 header_pages:
   - index.md
+  - about.md
+
+google_analytics: UA-73550695-2
 
 plugins:
  - jekyll-feed
