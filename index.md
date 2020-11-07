@@ -25,3 +25,9 @@ In this series I cover how to perform celestial navigation using Kerbal Space Pr
 8. [Contact Light](introduction/2020/05/18/Contact_Light.html) - Building a trajectory tracking algorithm 
 
 ---
+
+### Chapter 2 - breaking ground
+This series is more hardware oriented.  I build some systems to help me produce tools and other necessities to keep me alive.
+1.  [Fire in The Disco](setup/2020/10/24/FIRE.html)
+
+---
