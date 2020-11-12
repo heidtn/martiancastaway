@@ -29,5 +29,6 @@ In this series I cover how to perform celestial navigation using Kerbal Space Pr
 ### Chapter 2 - breaking ground
 This series is more hardware oriented.  I build some systems to help me produce tools and other necessities to keep me alive.
 1.  [Fire in The Disco](setup/2020/10/24/FIRE.html) - building an inert gas fire supression sytem
+2.  [Right tool for the job](setup/2020/11/11/toolbox.html) - building a toolbox to house my electronics
 
 ---
