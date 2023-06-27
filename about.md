@@ -5,4 +5,4 @@ My name is Nathan Heidt.  I'm an engineer primarily working in robotics systems 
 My Github: https://github.com/heidtn
 My LinkedIn: https://www.linkedin.com/in/nathanielheidt/
 
-You can reach me through my LinkedIn or through my alternate email: strigusconsilium@gmail.com
+The best way to reach me is through my LinkedIn

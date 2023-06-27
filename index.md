@@ -4,12 +4,12 @@
 
 Many years ago, Andy Weir released the Martian.  There was a certain magic to it, and it got folks asking a lot of interesting questions.  At this time I was already deeply fascinated with space, but it got me thinking.  Namely, if you were stranded on Mars with no hope of rescue, how would you survive?  What technologies would be required?  What would you need to build and develop, and what are the minimum starting resources required for survival?  
   
-This project sets out to begin answering some of these questions (to the best of my ability as a spacecraft engineer).  In the chapters below, I will be taking the role of a castaway martian, marooned on a strange planet with nothing but minimal gear and his own wits to keep him alive.  
+This project sets out to begin answering some of these questions (to the best of my ability as a spacecraft engineer).  In the chapters below, I will be taking the role of a cosmic castaway, marooned on a strange planet with nothing but minimal gear and his own wits to keep him alive.  
 
 My audience is people interested in learning more about the math and engineering behind space travel.  To that end, I make a few assumptions in most of my explanations.  Namely that you have a decent understanding of Calculus, matrix math (working with matrices and vectors), and some basic experience with programming (Python and some C++).  My hope is that these articles can serve as both tutorials for people interested in these concepts as well as a compelling read to follow along to show just what is involved in getting humans to survive on their own in the deep cosmos.  
 
 Please enjoy!  
--/EoT/ - Martian Castaway
+-/EoT/ - Cosmic Castaway
 
 ---
 
