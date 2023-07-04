@@ -19,16 +19,14 @@ In this series I cover how to perform celestial navigation using Kerbal Space Pr
 2. [Taking Control](introduction/2020/03/18/taking_control.html) - Connecting to my spacecraft
 3. [Navigation Online](introduction/2020/04/07/Navigation_Online.html) - Using Euler Integration to plot orbital dynamics
 4. [Eyes On](introduction/2020/05/07/Eyes_On.html) - Monocular surface reconstruction to determine good landing zones
-5. [Shoot for the Moon](2020-03-18-taking_control.md) - COMING SOON! Utilizing shooting methods to calculate an optimal burn to land my ship
-6. [Structurally Sound](2020-03-18-taking_control.md) - COMING SOON! Creating a finite element solver to validate stress limits on the spacecraft
-7. [G-FOLD](introduction/2020/05/09/G-FOLD.html) - Writing a convex fuel optimal trajectory calculation system
-8. [Contact Light](introduction/2020/05/18/Contact_Light.html) - Building a trajectory tracking algorithm 
+5. [G-FOLD](introduction/2020/05/09/G-FOLD.html) - Writing a convex fuel optimal trajectory calculation system
+6. [Contact Light](introduction/2020/05/18/Contact_Light.html) - Building a trajectory tracking algorithm 
 
 ---
 
 ### Chapter 2 - breaking ground
 This series is more hardware oriented.  I build some systems to help me produce tools and other necessities to keep me alive.
 1.  [Fire in The Disco](setup/2020/10/24/FIRE.html) - building an inert gas fire supression sytem
-2.  [Connecting With The Environment](setup/2023/06/27/connecting.html) - creating a sensor network to connect to my environment
+2.  [Connecting](setup/2023/06/27/connecting.html) - creating a sensor network to connect to my environment
 
 ---
