@@ -4,7 +4,7 @@ title: "Navigation Online"
 date: 2020-04-07 23:20:42 -0000
 categories: introduction
 ---
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
 
 *Author's Note: If you haven't read the first article 'taking control' on interfacing with the spacecraft, do that now.  I'm using python numpy for the matrix math and mayavi for the plotting.  Both can easily be installed with pip.  I assume you know about vector math and a little about partial differential equations.* 
 
